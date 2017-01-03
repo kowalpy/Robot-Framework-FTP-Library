@@ -1,0 +1,87 @@
+*** Settings ***
+Library           FtpLibrary.py
+Library           Collections
+
+*** Test Cases ***
+getConnections
+    [Documentation]    Testing new keyword "get all ftp connections"
+    ${connections}=    get all ftp connections
+    ftp connect    10.1.4.87    user1    pass1
+    ftp connect    10.1.4.120    user1    pass1    connId=secondConn
+    ftp connect    10.1.4.156    user2    pass2    connId=thirdConn
+    ${connections}=    get all ftp connections
+    @{connectionKeys}=    get dictionary keys    ${connections}
+    @{connectionValues}=    get dictionary values    ${connections}
+    : FOR    ${k}    IN    @{connectionKeys}
+    \    Log    ${k}
+    : FOR    ${c}    IN    @{connectionValues}
+    \    Log    ${c}
+    ftp close
+    ftp close    secondConn
+    ftp close    thirdConn
+    ${connections}=    get all ftp connections
+
+fullTest_3Connections
+    [Documentation]    Testing all keywords in the library in 3 different parallel connections.
+    ftp connect    10.1.4.87    user1    pass1
+    ftp connect    10.1.4.120    user1    pass1    connId=secondConn
+    ftp connect    10.1.4.156    user2    pass2    connId=thirdConn
+    ${newDir1}=    set variable    w_szczebrzeszynie
+    ${newDir2}=    set variable    chrzaszcz_brzmi
+    ${newDir3}=    set variable    w_trzcinie
+    ${newFIle1}=    set variable    stol_z_powylamywanymi_nogami
+    ${newFIle2}=    set variable    suchaSzosaSaszaSzedl
+    ${welcomeMsg}=    get welcome
+    Log    ${welcomeMsg}
+    ${welcomeMsg}=    get welcome    connId=secondConn
+    Log    ${welcomeMsg}
+    ${welcomeMsg}=    get welcome    connId=thirdConn
+    Log    ${welcomeMsg}
+    ${pwdMsg}=    pwd
+    Log    ${pwdMsg}
+    Log    mkd
+    mkd    ${newDir2}    secondConn
+    Log    dir
+    @{dirResult}=    dir    secondConn
+    Log    ${dirResult}
+    rmd    ${newDir2}    secondConn
+    @{dirResult}=    dir    secondConn
+    Log    ${dirResult}
+    send cmd    HELP
+    mkd    ${newDir1}    thirdConn
+    cwd    ${newDir1}    thirdConn
+    ${currDir}=    pwd    thirdConn
+    upload file    test.txt    connId=thirdConn
+    upload file    test.txt    ${newFIle2}    thirdConn
+    dir    thirdConn
+    rename    test.txt    ${newFIle1}    thirdConn
+    dir    thirdConn
+    comment    ${size}=    size    ${newFIle1}    thirdConn
+    comment    Log    ${size}
+    download file    ${newFIle1}    connId=thirdConn
+    download file    ${newFIle2}    connId=thirdConn
+    download file    ${newFIle1}    tmp    connId=thirdConn
+    download file    ${newFIle2}    tmp    connId=thirdConn
+    delete    ${newFIle1}    thirdConn
+    delete    ${newFIle2}    thirdConn
+    dir    thirdConn
+    pwd    secondConn
+    pwd    thirdConn
+    ftp close
+    ftp close    secondConn
+    ftp close    thirdConn
+
+negativeTests
+    [Documentation]    Testing handling of exceptions
+    ftp connect    10.1.4.87    user1    pass1    connId=newConn
+    ${passed}=    Run Keyword And Return Status    pwd    connId=newConn2
+    Run Keyword Unless    ${passed}    Log    Fail as expected
+    ${passed2}=    Run Keyword And Return Status    ftp connect    10.1.4.87    user1    pass1    connId=newConn
+    ...    # already existing connection ID
+    Run Keyword Unless    ${passed2}    Log    Fail as expected
+    ${passed3}=    Run Keyword And Return Status    pwd    connId=newConn8    # not existing connection ID
+    Run Keyword Unless    ${passed3}    Log    Fail as expected
+    ${passed4}=    Run Keyword And Return Status    ftp connect    10.112.43.187    user1    pass1    # wrong IP address
+    Run Keyword Unless    ${passed4}    Log    Fail as expected
+    ${passed5}=    Run Keyword And Return Status    upload file    shagdfqfcrtcfjwgakwrj    connId=newConn    # not existing file
+    Run Keyword Unless    ${passed5}    Log    Fail as expected
