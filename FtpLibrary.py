@@ -453,7 +453,7 @@ def main():
     mainMsg = "FtpLibrary is a functionality of FTP client for Robot Framework."
     mainMsg += " For instruction on how to use please visit "
     mainMsg += "http://sourceforge.net/projects/rf-ftp-py/"
-    print mainMsg
+    print(mainMsg)
 
 if __name__ == '__main__':
     main()
