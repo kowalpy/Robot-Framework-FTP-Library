@@ -10,7 +10,7 @@ LGPL 3.0
 
 ## Keyword documentation
 
-[FtpLibrary.html](https://github.com/kowalpy/Robot-Framework-FTP-Library/blob/master/FtpLibrary.html)
+[FtpLibrary.html](https://kowalpy.github.io/Robot-Framework-FTP-Library/FtpLibrary.html)
 
 ## Version history
 
