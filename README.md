@@ -21,17 +21,16 @@ What's new in release 1.3:
 - strongly refactored source code
 - enabling/disabling printout of messages returned by ftp server
 
-Despite new features, 1.3 should be compatible with previous versions.
+Version 1.4 released on 1st of April 2017 - no, it is not April Fools' Day joke :-D 
+
+What's new in release 1.4:
+- running library remotely
 
 ## Installation
 - run command: **pip install robotframework-ftplibrary**
 
 OR
 - download, unzip and run command: python setup.py install
-
-OR
-- download, unzip and copy FtpLibrary.py file to a directory pointed by
-    PYTHONPATH (for example ...\Python27\lib\site-packages).
 
 ## Usage
 	
@@ -65,3 +64,12 @@ By default logging is enabled:
 ``` 
  | Library | FtpLibrary.py | False |
 ``` 
+ To disable logging of server messages, additional parameter must be added to import:
+``` 
+ | Library | FtpLibrary.py | False |
+``` 
+
+## Running remotely
+
+To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
+(for example: python FtpLibrary.py 192.168.0.101 8222)

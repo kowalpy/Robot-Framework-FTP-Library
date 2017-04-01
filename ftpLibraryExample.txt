@@ -3,6 +3,14 @@ Library           FtpLibrary.py
 Library           Collections
 
 *** Test Cases ***
+theSimplestExample
+    comment    FTP server IP address     taken from     http://stackoverflow.com/questions/7968703/is-there-a-public-ftp-server-to-test-upload-and-download
+    ftp connect    speedtest.tele2.net
+    @{dirResult}=    dir
+    ${pwdMsg}=    pwd
+    download file    1KB.zip
+    ftp close
+
 getConnections
     [Documentation]    Testing new keyword "get all ftp connections"
     ${connections}=    get all ftp connections

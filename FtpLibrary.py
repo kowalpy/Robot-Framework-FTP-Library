@@ -25,30 +25,22 @@ class FtpLibrary(object):
     """
 This library provides functionality of FTP client.
 
-Version 1.3 released on 30th of January 2016.
+Version 1.4 released on 1st of April 2017 - no, it is not April Fools' Day joke :-D
 
-What's new in release 1.3:
-- multiple connections in parallel
-- strongly refactored source code
-- enabling/disabling printout of messages returned by ftp server
-
-Despite new features, 1.3 should be compatible with previous versions.
+What's new in release 1.4:
+- running library remotely
 
 FTP communication provided by ftplib.py
 
 Author: Marcin Kowalczyk
 
-Website: http://sourceforge.net/projects/rf-ftp-py/
+Website: https://github.com/kowalpy/Robot-Framework-FTP-Library
 
 Installation:
 - run command: pip install robotframework-ftplibrary
 
 OR
 - download, unzip and run command: python setup.py install
-
-OR
-- download, unzip and copy FtpLibrary.py file to a directory pointed by
-    PYTHONPATH (for example ...\Python27\lib\site-packages).
 
 The simplest example (connect, change working dir, print working dir, close):
  | ftp connect | 192.168.1.10 | mylogin | mypassword |
@@ -67,6 +59,8 @@ identified by string identifiers:
  | ftp close | ftp2 |
  | ftp close | ftp1 |
 
+To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
+(for example: python FtpLibrary.py 192.168.0.101 8222)
 """
 
     ROBOT_LIBRARY_SCOPE = 'TEST SUITE'
@@ -450,10 +444,10 @@ class FtpLibraryError(Exception):
         return self.msg
 
 def main():
-    mainMsg = "FtpLibrary is a functionality of FTP client for Robot Framework."
-    mainMsg += " For instruction on how to use please visit "
-    mainMsg += "http://sourceforge.net/projects/rf-ftp-py/"
-    print(mainMsg)
+    import sys
+    from robotremoteserver import RobotRemoteServer
+    print "Starting Robot Framework Ftp Library as a remote server ..."
+    RobotRemoteServer(library=FtpLibrary(), host=sys.argv[1], port=sys.argv[2])
 
 if __name__ == '__main__':
     main()
