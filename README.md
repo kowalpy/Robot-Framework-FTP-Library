@@ -67,5 +67,5 @@ By default logging is enabled:
 
 ## Running remotely
 
-To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
-(for example: python FtpLibrary.py 192.168.0.101 8222)
+To run library remotely execute: *python FtpLibrary.py ipaddress portnumber*
+(for example: *python FtpLibrary.py 192.168.0.101 8222*)
