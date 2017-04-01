@@ -64,10 +64,6 @@ By default logging is enabled:
 ``` 
  | Library | FtpLibrary.py | False |
 ``` 
- To disable logging of server messages, additional parameter must be added to import:
-``` 
- | Library | FtpLibrary.py | False |
-``` 
 
 ## Running remotely
 
