@@ -293,8 +293,8 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
             if os.path.isdir(localPath):
                 localPath = os.path.join(localPath, remoteFileName)
         try:
-            localFile = open(localPath, 'wb')
-            outputMsg += thisConn.retrbinary("RETR " + remoteFileName, localFile.write)
+            with open(localPath, 'wb') as localFile:
+                outputMsg += thisConn.retrbinary("RETR " + remoteFileName, localFile.write)
         except ftplib.all_errors as e:
             raise FtpLibraryError(str(e))
         if self.printOutput:
