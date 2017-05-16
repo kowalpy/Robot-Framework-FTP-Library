@@ -2,21 +2,29 @@
 Library           FtpLibrary.py
 Library           Collections
 
+*** Variables ***
+${public_address}    speedtest.tele2.net
+${public_file_name}    1KB.zip
+${local_ftp_addr_1}    10.1.4.87
+${local_ftp_addr_2}    10.1.4.120
+${local_ftp_addr_3}    10.1.4.156
+${fake_ftp_addr}    10.244.17.36
+
 *** Test Cases ***
-theSimplestExample
-    comment    FTP server IP address     taken from     http://stackoverflow.com/questions/7968703/is-there-a-public-ftp-server-to-test-upload-and-download
-    ftp connect    speedtest.tele2.net
+the_simplest_example_public_ftp
+    comment    Public FTP server IP address taken from http://stackoverflow.com/questions/7968703/is-there-a-public-ftp-server-to-test-upload-and-download
+    ftp connect    ${public_address}
     @{dirResult}=    dir
     ${pwdMsg}=    pwd
-    download file    1KB.zip
+    download file    ${public_file_name}
     ftp close
 
-getConnections
+get_connections
     [Documentation]    Testing new keyword "get all ftp connections"
     ${connections}=    get all ftp connections
-    ftp connect    10.1.4.87    user1    pass1
-    ftp connect    10.1.4.120    user1    pass1    connId=secondConn
-    ftp connect    10.1.4.156    user2    pass2    connId=thirdConn
+    ftp connect    ${local_ftp_addr_1}    user1    pass1
+    ftp connect    ${local_ftp_addr_2}    user1    pass1    connId=secondConn
+    ftp connect    ${local_ftp_addr_3}    \    pass2    connId=thirdConn
     ${connections}=    get all ftp connections
     @{connectionKeys}=    get dictionary keys    ${connections}
     @{connectionValues}=    get dictionary values    ${connections}
@@ -29,11 +37,11 @@ getConnections
     ftp close    thirdConn
     ${connections}=    get all ftp connections
 
-fullTest_3Connections
+full_test_3_connections
     [Documentation]    Testing all keywords in the library in 3 different parallel connections.
-    ftp connect    10.1.4.87    user1    pass1
-    ftp connect    10.1.4.120    user1    pass1    connId=secondConn
-    ftp connect    10.1.4.156    user2    pass2    connId=thirdConn
+    ftp connect    ${local_ftp_addr_1}    user1    pass1
+    ftp connect    ${local_ftp_addr_2}    user1    pass1    connId=secondConn
+    ftp connect    ${local_ftp_addr_3}    \    pass2    connId=thirdConn
     ${newDir1}=    set variable    w_szczebrzeszynie
     ${newDir2}=    set variable    chrzaszcz_brzmi
     ${newDir3}=    set variable    w_trzcinie
@@ -79,17 +87,17 @@ fullTest_3Connections
     ftp close    secondConn
     ftp close    thirdConn
 
-negativeTests
+negative_tests
     [Documentation]    Testing handling of exceptions
-    ftp connect    10.1.4.87    user1    pass1    connId=newConn
+    ftp connect    ${local_ftp_addr_1}    user1    pass1    connId=newConn
     ${passed}=    Run Keyword And Return Status    pwd    connId=newConn2
     Run Keyword Unless    ${passed}    Log    Fail as expected
-    ${passed2}=    Run Keyword And Return Status    ftp connect    10.1.4.87    user1    pass1    connId=newConn
+    ${passed2}=    Run Keyword And Return Status    ftp connect    ${local_ftp_addr_1}    user1    pass1    connId=newConn
     ...    # already existing connection ID
     Run Keyword Unless    ${passed2}    Log    Fail as expected
     ${passed3}=    Run Keyword And Return Status    pwd    connId=newConn8    # not existing connection ID
     Run Keyword Unless    ${passed3}    Log    Fail as expected
-    ${passed4}=    Run Keyword And Return Status    ftp connect    10.112.43.187    user1    pass1    # wrong IP address
+    ${passed4}=    Run Keyword And Return Status    ftp connect    ${fake_ftp_addr}    user1    pass1    # wrong IP address
     Run Keyword Unless    ${passed4}    Log    Fail as expected
     ${passed5}=    Run Keyword And Return Status    upload file    shagdfqfcrtcfjwgakwrj    connId=newConn    # not existing file
     Run Keyword Unless    ${passed5}    Log    Fail as expected
