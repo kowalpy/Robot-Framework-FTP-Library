@@ -1,5 +1,5 @@
 *** Settings ***
-Library           FtpLibrary.py
+Library           FtpLibrary
 Library           Collections
 
 *** Variables ***
