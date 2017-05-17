@@ -15,15 +15,18 @@
 
 """
 To install Robot Framework Ftp Library execute command:
-    python setup.py install
+    run command: pip install robotframework-ftplibrary
+
+    OR
+
+    download, unzip and run command: python setup.py install
 """
 from distutils.core import setup
 
 setup(name='robotframework-ftplibrary',
-      version='1.3',
+      version='1.4',
       description='Robot Framework Ftp Library',
       author='Marcin Kowalczyk',
-      author_email='mkov80@gmail.com',
       license='GPLv3',
       url='http://sourceforge.net/projects/rf-ftp-py/',
       py_modules=['FtpLibrary'],
