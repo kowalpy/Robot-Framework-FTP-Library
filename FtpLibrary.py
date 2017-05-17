@@ -13,7 +13,8 @@
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
+#to generate libdoc documentation run:
+#   python -m robot.libdoc FtpLibrary FtpLibrary.html
 
 import ftplib
 import os
@@ -25,14 +26,15 @@ class FtpLibrary(object):
     """
 This library provides functionality of FTP client.
 
-Version 1.4 released on 1st of April 2017 - no, it is not April Fools' Day joke :-D
+Version 1.4 released on 17th of May 2017
 
 What's new in release 1.4:
 - running library remotely
+- IronPython compatibility issue fixed by [https://github.com/jpeltonen|Jarkko Peltonen]
 
 FTP communication provided by ftplib.py
 
-Author: Marcin Kowalczyk
+Author: [https://github.com/kowalpy|Marcin Kowalczyk]
 
 Website: https://github.com/kowalpy/Robot-Framework-FTP-Library
 
