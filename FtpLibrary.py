@@ -448,7 +448,7 @@ class FtpLibraryError(Exception):
 def main():
     import sys
     from robotremoteserver import RobotRemoteServer
-    print "Starting Robot Framework Ftp Library as a remote server ..."
+    print("Starting Robot Framework Ftp Library as a remote server ...")
     RobotRemoteServer(library=FtpLibrary(), host=sys.argv[1], port=sys.argv[2])
 
 if __name__ == '__main__':
