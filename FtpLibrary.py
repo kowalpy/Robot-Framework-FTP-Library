@@ -26,11 +26,11 @@ class FtpLibrary(object):
     """
 This library provides functionality of FTP client.
 
-Version 1.4 released on 17th of May 2017
+Version 1.5 released on 25th of December 2017
 
-What's new in release 1.4:
-- running library remotely
-- IronPython compatibility issue fixed by [https://github.com/jpeltonen|Jarkko Peltonen]
+What's new in release 1.5:
+- Python 3 support by [https://github.com/DirkRichter|Dirk Richter]
+- New Keyword Dir Names
 
 FTP communication provided by ftplib.py
 
@@ -213,7 +213,7 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
 
     def dir(self, connId='default'):
         """
-        Returns list of contents of current directory.
+        Returns list of raw lines returned as contens of current directory.
         Parameters:
         - connId(optional) - connection identifier. By default equals 'default'
         """
@@ -229,6 +229,20 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
         if self.printOutput:
             logger.info(outputMsg)
         return dirList
+
+    def dir_names(self, connId='default'):
+        """
+        Returns list of files (and/or directories) of current directory.
+        Parameters:
+        - connId(optional) - connection identifier. By default equals 'default'
+        """
+        files_list = []
+        thisConn = self.__getConnection(connId)
+        try:
+            files_list = thisConn.nlst()
+        except:
+            files_list = []
+        return files_list
 
     def mkd(self, newDirName, connId='default'):
         """

@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 2.8.7 (Python 2.7.10 on win32)" name="Generator">
+<meta content="Robot Framework 3.0.2 (Python 2.7.14 on win32)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAJEBoACtnfgA5cYYAERsiAEx2lAAbKkQAcazBACZCVwAcM1cAK0ucAAMDBQAnQncASG+FABkoVQAyWmgA6f8SgvH/Ij99+GLyIinyJfn/Yi//KSLzUy9iZogpIld3/4JVVTkid7vyUjNVNVJEAGOZ6Z7pXwAABpmZkRiLAAAGiJZpmGAAAEEt3SXdxAAATC7o/u3EAAC8MRZpjasAAAY1VVVTYAAABKqqqqpAAAAADKqq4AAAAAAAv4sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMADAADgAwAA4AcAAOAHAADgBwAAwAcAAOAHAADgDwAA8A8AAPg/AAD+fwAA">
 <style media="all" type="text/css">
 body {
@@ -32,49 +32,60 @@ a:hover, a:active {
     text-decoration: underline;
     color: black;
 }
-div.shortcuts {
+a:hover {
+    text-decoration: underline !important;
+}
+.shortcuts {
     margin: 1em 0;
     font-size: 0.9em;
 }
-div.shortcuts a {
+.shortcuts a {
     display: inline-block;
     text-decoration: none;
     white-space: nowrap;
     color: black;
 }
-div.shortcuts a::first-letter {
+.shortcuts a::first-letter {
     font-weight: bold;
-    font-size: 1.05em;
     letter-spacing: 0.1em;
 }
-div.shortcuts a:hover {
-    text-decoration: underline;
+.normal-first-letter::first-letter {
+    font-weight: normal !important;
+    letter-spacing: 0 !important;
 }
-table.keywords {
-    border: 2px solid black;
+.keywords {
+    border: 1px solid #ccc;
     border-collapse: collapse;
     empty-cells: show;
     margin: 0.3em 0;
     width: 100%;
 }
-table.keywords th, table.keywords td {
-    border: 2px solid black;
+.keywords th, .keywords td {
+    border: 1px solid #ccc;
     padding: 0.2em;
     vertical-align: top;
 }
-table.keywords th {
-    background: #bbb;
+.keywords th {
+    background: #ddd;
     color: black;
 }
-table.keywords td.kw {
+.kw, .args, .tags {
     min-width: 100px;
     max-width: 20%;
+}
+td.kw a {
+    color: inherit;
+    text-decoration: none;
     font-weight: bold;
 }
-table.keywords td.args {
-    min-width: 100px;
-    max-width: 20%;
+.args span {
     font-style: italic;
+    padding: 0 0.1em;
+}
+.tags a {
+    color: inherit;
+    text-decoration: none;
+    padding: 0 0.1em;
 }
 .footer {
     font-size: 0.9em;
@@ -93,11 +104,11 @@ table.keywords td.args {
     z-index: 1000;
 }
 #search {
-    width:30em;
+    width: 30em;
     display: none;
 }
 #open-search {
-    border: 2px solid black;
+    border: 2px solid #ccc;
     border-radius: 4px;
     width: 40px;
     height: 40px;
@@ -109,16 +120,16 @@ table.keywords td.args {
     background-size: 24px 24px;
 }
 #open-search:hover {
-    background-color: yellow;
+    background-color: #ccc;
 }
 fieldset {
     background: white;
-    border: 2px solid black;
+    border: 2px solid #ccc;
     border-radius: 4px;
     padding: 6px 8px;
 }
 fieldset fieldset {
-    border: 1px solid black;
+    border: 1px solid #ccc;
     margin: 4px 0;
 }
 #search-title {
@@ -146,6 +157,76 @@ tr.no-match.hide-unmatched {
     display: none;
 }
 </style>
+<style media="all" type="text/css">
+/* Pygments 'default' style sheet. Generated with Pygments 2.1.3 using:
+     pygmentize -S default -f html -a .code > src/robot/htmldata/libdoc/pygments.css
+*/
+.code .hll { background-color: #ffffcc }
+.code  { background: #f8f8f8; }
+.code .c { color: #408080; font-style: italic } /* Comment */
+.code .err { border: 1px solid #FF0000 } /* Error */
+.code .k { color: #008000; font-weight: bold } /* Keyword */
+.code .o { color: #666666 } /* Operator */
+.code .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.code .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.code .cp { color: #BC7A00 } /* Comment.Preproc */
+.code .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.code .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.code .cs { color: #408080; font-style: italic } /* Comment.Special */
+.code .gd { color: #A00000 } /* Generic.Deleted */
+.code .ge { font-style: italic } /* Generic.Emph */
+.code .gr { color: #FF0000 } /* Generic.Error */
+.code .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.code .gi { color: #00A000 } /* Generic.Inserted */
+.code .go { color: #888888 } /* Generic.Output */
+.code .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.code .gs { font-weight: bold } /* Generic.Strong */
+.code .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.code .gt { color: #0044DD } /* Generic.Traceback */
+.code .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.code .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.code .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.code .kp { color: #008000 } /* Keyword.Pseudo */
+.code .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.code .kt { color: #B00040 } /* Keyword.Type */
+.code .m { color: #666666 } /* Literal.Number */
+.code .s { color: #BA2121 } /* Literal.String */
+.code .na { color: #7D9029 } /* Name.Attribute */
+.code .nb { color: #008000 } /* Name.Builtin */
+.code .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.code .no { color: #880000 } /* Name.Constant */
+.code .nd { color: #AA22FF } /* Name.Decorator */
+.code .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.code .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.code .nf { color: #0000FF } /* Name.Function */
+.code .nl { color: #A0A000 } /* Name.Label */
+.code .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.code .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.code .nv { color: #19177C } /* Name.Variable */
+.code .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.code .w { color: #bbbbbb } /* Text.Whitespace */
+.code .mb { color: #666666 } /* Literal.Number.Bin */
+.code .mf { color: #666666 } /* Literal.Number.Float */
+.code .mh { color: #666666 } /* Literal.Number.Hex */
+.code .mi { color: #666666 } /* Literal.Number.Integer */
+.code .mo { color: #666666 } /* Literal.Number.Oct */
+.code .sb { color: #BA2121 } /* Literal.String.Backtick */
+.code .sc { color: #BA2121 } /* Literal.String.Char */
+.code .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.code .s2 { color: #BA2121 } /* Literal.String.Double */
+.code .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.code .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.code .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.code .sx { color: #008000 } /* Literal.String.Other */
+.code .sr { color: #BB6688 } /* Literal.String.Regex */
+.code .s1 { color: #BA2121 } /* Literal.String.Single */
+.code .ss { color: #19177C } /* Literal.String.Symbol */
+.code .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.code .vc { color: #19177C } /* Name.Variable.Class */
+.code .vg { color: #19177C } /* Name.Variable.Global */
+.code .vi { color: #19177C } /* Name.Variable.Instance */
+.code .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
 <style media="print" type="text/css">
 body {
     margin: 0;
@@ -164,9 +245,9 @@ a {
     width: 600px;
     margin: 100px auto 0 auto;
     padding: 20px;
-    color: #2A2A2E;
-    border: 1px solid #9A9A9E;
-    background: #FAFAFF;
+    color: black;
+    border: 1px solid #ccc;
+    background: #eee;
 }
 #javascript-disabled h1 {
     width: 100%;
@@ -194,14 +275,14 @@ a {
     margin-top: 0.1em;
 }
 .doc table {
-    border: 1px solid gray;
+    border: 1px solid #ccc;
     background: transparent;
     border-collapse: collapse;
     empty-cells: show;
     font-size: 0.9em;
 }
 .doc table th, .doc table td {
-    border: 1px solid gray;
+    border: 1px solid #ccc;
     background: transparent;
     padding: 0.1em 0.3em;
     height: 1.2em;
@@ -213,22 +294,22 @@ a {
 .doc pre {
     font-size: 1.1em;
     letter-spacing: 0.05em;
-    background: #F4F4FF;
+    background: #f4f4f4;
 }
 .doc code {
     padding: 0 0.2em;
     letter-spacing: 0.05em;
-    background: #F4F4FF;
+    background: #eee;
 }
 .doc li {
     list-style-position: inside;
     list-style-type: square;
 }
 .doc img {
-    border: 1px solid gray;
+    border: 1px solid #ccc;
 }
 .doc hr {
-    background: gray;
+    background: #ccc;
     height: 1px;
     border: 0;
 }
@@ -351,8 +432,16 @@ window.util = function () {
         var base = window.output ? window.output.baseMillis : 0;
         return new Date(base + millis);
     }
-    function createGeneratedAgoString(generatedMillis) {
-        generatedMillis = timestamp(generatedMillis);
+    function createGeneratedString(timestamp) {
+        var date = new Date(timestamp);
+        var dt = dateTimeFromDate(date).slice(0, 17);  // drop millis
+        var offset = date.getTimezoneOffset();
+        var sign = offset > 0 ? '-' : '+';
+        var hours = Math.floor(Math.abs(offset) / 60);
+        var mins = Math.abs(offset) % 60;
+        return dt + ' GMT' + sign + padTo(hours, 2) + ':' + padTo(mins, 2);
+    }
+    function createGeneratedAgoString(timestamp) {
         function timeString(time, shortUnit) {
             var unit = {y: 'year', d: 'day', h: 'hour', m: 'minute',
                         s: 'second'}[shortUnit];
@@ -363,7 +452,7 @@ window.util = function () {
             // Not a perfect algorithm but ought to be enough
             return days - Math.floor(years / 4);
         }
-        var generated = Math.round(generatedMillis / 1000);
+        var generated = Math.round(timestamp / 1000);
         var current = Math.round(new Date().getTime() / 1000);
         var elapsed = current - generated;
         var prefix = '';
@@ -422,6 +511,7 @@ window.util = function () {
         dateTimeFromDate: dateTimeFromDate,
         formatElapsed: formatElapsed,
         timestamp: timestamp,
+        createGeneratedString: createGeneratedString,
         createGeneratedAgoString: createGeneratedAgoString,
         parseQueryString: parseQueryString
     };
@@ -457,7 +547,7 @@ window.util = function () {
 jQuery.extend({highlight:function(e,t,n,r){if(e.nodeType===3){var i=e.data.match(t);if(i){var s=document.createElement(n||"span");s.className=r||"highlight";var o=e.splitText(i.index);o.splitText(i[0].length);var u=o.cloneNode(true);s.appendChild(u);o.parentNode.replaceChild(s,o);return 1}}else if(e.nodeType===1&&e.childNodes&&!/(script|style)/i.test(e.tagName)&&!(e.tagName===n.toUpperCase()&&e.className===r)){for(var a=0;a<e.childNodes.length;a++){a+=jQuery.highlight(e.childNodes[a],t,n,r)}}return 0}});jQuery.fn.unhighlight=function(e){var t={className:"highlight",element:"span"};jQuery.extend(t,e);return this.find(t.element+"."+t.className).each(function(){var e=this.parentNode;e.replaceChild(this.firstChild,this);e.normalize()}).end()};jQuery.fn.highlight=function(e,t){var n={className:"highlight",element:"span",caseSensitive:false,wordsOnly:false};jQuery.extend(n,t);if(e.constructor===String){e=[e]}e=jQuery.grep(e,function(e,t){return e!=""});e=jQuery.map(e,function(e,t){return e.replace(/[-[\]{}()*+?.,\\^$|#\s]/g,"\\$&")});if(e.length==0){return this}var r=n.caseSensitive?"":"i";var i="("+e.join("|")+")";if(n.wordsOnly){i="\\b"+i+"\\b"}var s=new RegExp(i,r);return this.each(function(){jQuery.highlight(this,s,n.element,n.className)})}
 </script>
 <script type="text/javascript">
-libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<p>Version 1.4 released on 17th of May 2017\x3c/p>\n<p>What's new in release 1.4:\x3c/p>\n<ul>\n<li>running library remotely\x3c/li>\n<li>IronPython compatibility issue fixed by <a href=\"https://github.com/jpeltonen\">Jarkko Peltonen\x3c/a>\x3c/li>\n\x3c/ul>\n<p>FTP communication provided by ftplib.py\x3c/p>\n<p>Author: <a href=\"https://github.com/kowalpy\">Marcin Kowalczyk\x3c/a>\x3c/p>\n<p>Website: <a href=\"https://github.com/kowalpy/Robot-Framework-FTP-Library\">https://github.com/kowalpy/Robot-Framework-FTP-Library\x3c/a>\x3c/p>\n<p>Installation:\x3c/p>\n<ul>\n<li>run command: pip install robotframework-ftplibrary\x3c/li>\n\x3c/ul>\n<p>OR\x3c/p>\n<ul>\n<li>download, unzip and run command: python setup.py install\x3c/li>\n\x3c/ul>\n<p>The simplest example (connect, change working dir, print working dir, close):\x3c/p>\n<table border=\"1\">\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n\x3c/tr>\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>pwd\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp close\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>\n<p>It is possible to use multiple ftp connections in parallel. Connections are identified by string identifiers:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>connId=ftp1\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.20\x3c/td>\n<td>mylogin2\x3c/td>\n<td>mypassword2\x3c/td>\n<td>connId=ftp2\x3c/td>\n\x3c/tr>\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>ftp1\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>ftp2\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>pwd\x3c/td>\n<td>ftp2\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>pwd\x3c/td>\n<td>ftp1\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp close\x3c/td>\n<td>ftp2\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp close\x3c/td>\n<td>ftp1\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>\n<p>To run library remotely execute: python FtpLibrary.py &lt;ipaddress&gt; &lt;portnumber&gt; (for example: python FtpLibrary.py 192.168.0.101 8222)\x3c/p>","generated":"2017-05-17 13:41:25","inits":[{"args":"printOutput=True","doc":"<p>During library import it is possible to disable logging of server messages. By default logging is enabled:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>Library\x3c/td>\n<td>FtpLibrary.py\x3c/td>\n\x3c/tr>\n\x3c/table>\n<p>To disable logging of server messages, additional parameter must be added to import:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>Library\x3c/td>\n<td>FtpLibrary.py\x3c/td>\n<td>False\x3c/td>\n\x3c/tr>\n\x3c/table>","name":"Init","shortdoc":"During library import it is possible to disable logging of server messages."}],"keywords":[{"args":"directory, connId=default","doc":"<p>Changes working directory and returns server output. Parameters:\x3c/p>\n<ul>\n<li>directory - a path to which working dir should be changed.\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Example:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>ftp1\x3c/td>\n\x3c/tr>\n\x3c/table>","name":"Cwd","shortdoc":"Changes working directory and returns server output. Parameters:"},{"args":"targetFile, connId=default","doc":"<p>Deletes file on FTP server. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>targetFile - file path to be deleted\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","name":"Delete","shortdoc":"Deletes file on FTP server. Returns server output."},{"args":"connId=default","doc":"<p>Returns list of contents of current directory. Parameters:\x3c/p>\n<ul>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","name":"Dir","shortdoc":"Returns list of contents of current directory."},{"args":"remoteFileName, localFilePath=None, connId=default","doc":"<p>Downloads file from current directory on FTP server in binary mode. If localFilePath is not given, file is saved in current local directory (by default folder containing robot framework project file) with the same name as source file. Returns server output Parameters:\x3c/p>\n<ul>\n<li>remoteFileName - file name on FTP server\x3c/li>\n<li>localFilePath (optional) - local file name or path where remote file should be saved.\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>localFilePath variable can have following meanings: 1. file name (will be saved in current default directory); 2. full path (dir + file name) 3. dir path (original file name will be added) Examples:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>b.txt\x3c/td>\n<td>connId=ftp1\x3c/td>\n\x3c/tr>\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>D:/rfftppy/tmp\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>D:/rfftppy/tmp/b.txt\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>D:\\rfftppy\\tmp\\c.txt\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>","name":"Download File","shortdoc":"Downloads file from current directory on FTP server in binary mode. If"},{"args":"connId=default","doc":"<p>Closes FTP connection. Returns None. Parameters:\x3c/p>\n<ul>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","name":"Ftp Close","shortdoc":"Closes FTP connection. Returns None."},{"args":"host, user=anonymous, password=anonymous@, port=21, timeout=30, connId=default","doc":"<p>Constructs FTP object, opens a connection and login. Call this function before any other (otherwise raises exception). Returns server output. Parameters:\x3c/p>\n<ul>\n<li>host - server host address\x3c/li>\n<li>user(optional) - FTP user name. If not given, 'anonymous' is used.\x3c/li>\n<li>password(optional) - FTP password. If not given, 'anonymous@' is used.\x3c/li>\n<li>port(optional) - TCP port. By default 21.\x3c/li>\n<li>timeout(optional) - timeout in seconds. By default 30.\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Examples:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>connId=secondConn\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>29\x3c/td>\n<td>20\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>29\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>timeout=20\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>port=29\x3c/td>\n<td>timeout=20\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>","name":"Ftp Connect","shortdoc":"Constructs FTP object, opens a connection and login."},{"args":"","doc":"<p>Returns a dictionary containing active ftp connections.\x3c/p>","name":"Get All Ftp Connections","shortdoc":"Returns a dictionary containing active ftp connections."},{"args":"connId=default","doc":"<p>Returns wlecome message of FTP server. Parameters:\x3c/p>\n<ul>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","name":"Get Welcome","shortdoc":"Returns wlecome message of FTP server."},{"args":"newDirName, connId=default","doc":"<p>Creates new directory on FTP server. Returns new directory path. Parameters:\x3c/p>\n<ul>\n<li>newDirName - name of a new directory\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","name":"Mkd","shortdoc":"Creates new directory on FTP server. Returns new directory path."},{"args":"connId=default","doc":"<p>Returns the pathname of the current directory on the server. Parameters:\x3c/p>\n<ul>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","name":"Pwd","shortdoc":"Returns the pathname of the current directory on the server."},{"args":"targetFile, newName, connId=default","doc":"<p>Renames (actually moves) file on FTP server. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>targetFile - name of a file or path to a file to be renamed\x3c/li>\n<li>newName - new name or new path\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Example:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>rename\x3c/td>\n<td>tmp/z.txt\x3c/td>\n<td>/home/myname/tmp/testdir/z.txt\x3c/td>\n\x3c/tr>\n\x3c/table>","name":"Rename","shortdoc":"Renames (actually moves) file on FTP server. Returns server output."},{"args":"directory, connId=default","doc":"<p>Deletes directory from FTP server. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>directory - path to a directory to be deleted\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","name":"Rmd","shortdoc":"Deletes directory from FTP server. Returns server output."},{"args":"command, connId=default","doc":"<p>Sends any command to FTP server. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>command - any valid command to be sent (invalid will result in exception).\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Example:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>send cmd\x3c/td>\n<td>HELP\x3c/td>\n\x3c/tr>\n\x3c/table>","name":"Send Cmd","shortdoc":"Sends any command to FTP server. Returns server output."},{"args":"fileToCheck, connId=default","doc":"<p>Checks size of a file on FTP server. Returns size of a file in bytes (integer). Parameters:\x3c/p>\n<ul>\n<li>fileToCheck - file name or path to a file on FTP server\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Example:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>${file1size} =\x3c/td>\n<td>size\x3c/td>\n<td>/home/myname/tmp/uu.txt\x3c/td>\n<td>connId=ftp1\x3c/td>\n\x3c/tr>\n<tr>\n<td>Should Be Equal As Numbers\x3c/td>\n<td>${file1size}\x3c/td>\n<td>31\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>\n<p>Note that the SIZE command is not standardized, but is supported by many common server implementations.\x3c/p>","name":"Size","shortdoc":"Checks size of a file on FTP server. Returns size of a file in bytes (integer)."},{"args":"localFileName, remoteFileName=None, connId=default","doc":"<p>Sends file from local drive to current directory on FTP server in binary mode. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>localFileName - file name or path to a file on a local drive.\x3c/li>\n<li>remoteFileName (optional) - a name or path containing name under which file should be saved.\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>If remoteFileName agument is not given, local name will be used. Examples:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>upload file\x3c/td>\n<td>x.txt\x3c/td>\n<td>connId=ftp1\x3c/td>\n\x3c/tr>\n<tr>\n<td>upload file\x3c/td>\n<td>D:/rfftppy/y.txt\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>upload file\x3c/td>\n<td>u.txt\x3c/td>\n<td>uu.txt\x3c/td>\n\x3c/tr>\n<tr>\n<td>upload file\x3c/td>\n<td>D:/rfftppy/z.txt\x3c/td>\n<td>zz.txt\x3c/td>\n\x3c/tr>\n<tr>\n<td>upload file\x3c/td>\n<td>D:\\rfftppy\\v.txt\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>","name":"Upload File","shortdoc":"Sends file from local drive to current directory on FTP server in binary mode."}],"name":"FtpLibrary","named_args":true,"scope":"test suite","version":""};
+libdoc = {"all_tags":[],"contains_tags":false,"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<p>Version 1.5 released on 25th of December 2017\x3c/p>\n<p>What's new in release 1.5:\x3c/p>\n<ul>\n<li>Python 3 support by <a href=\"https://github.com/DirkRichter\">Dirk Richter\x3c/a>\x3c/li>\n<li>New Keyword Dir Names\x3c/li>\n\x3c/ul>\n<p>FTP communication provided by ftplib.py\x3c/p>\n<p>Author: <a href=\"https://github.com/kowalpy\">Marcin Kowalczyk\x3c/a>\x3c/p>\n<p>Website: <a href=\"https://github.com/kowalpy/Robot-Framework-FTP-Library\">https://github.com/kowalpy/Robot-Framework-FTP-Library\x3c/a>\x3c/p>\n<p>Installation:\x3c/p>\n<ul>\n<li>run command: pip install robotframework-ftplibrary\x3c/li>\n\x3c/ul>\n<p>OR\x3c/p>\n<ul>\n<li>download, unzip and run command: python setup.py install\x3c/li>\n\x3c/ul>\n<p>The simplest example (connect, change working dir, print working dir, close):\x3c/p>\n<table border=\"1\">\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n\x3c/tr>\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>pwd\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp close\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>\n<p>It is possible to use multiple ftp connections in parallel. Connections are identified by string identifiers:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>connId=ftp1\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.20\x3c/td>\n<td>mylogin2\x3c/td>\n<td>mypassword2\x3c/td>\n<td>connId=ftp2\x3c/td>\n\x3c/tr>\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>ftp1\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>ftp2\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>pwd\x3c/td>\n<td>ftp2\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>pwd\x3c/td>\n<td>ftp1\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp close\x3c/td>\n<td>ftp2\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp close\x3c/td>\n<td>ftp1\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>\n<p>To run library remotely execute: python FtpLibrary.py &lt;ipaddress&gt; &lt;portnumber&gt; (for example: python FtpLibrary.py 192.168.0.101 8222)\x3c/p>","generated":"2017-12-25 20:41:36","inits":[{"args":["printOutput=True"],"doc":"<p>During library import it is possible to disable logging of server messages. By default logging is enabled:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>Library\x3c/td>\n<td>FtpLibrary.py\x3c/td>\n\x3c/tr>\n\x3c/table>\n<p>To disable logging of server messages, additional parameter must be added to import:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>Library\x3c/td>\n<td>FtpLibrary.py\x3c/td>\n<td>False\x3c/td>\n\x3c/tr>\n\x3c/table>","matched":true,"name":"Init","shortdoc":"During library import it is possible to disable logging of server messages.","tags":[]}],"keywords":[{"args":["directory","connId=default"],"doc":"<p>Changes working directory and returns server output. Parameters:\x3c/p>\n<ul>\n<li>directory - a path to which working dir should be changed.\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Example:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>cwd\x3c/td>\n<td>/home/myname/tmp/testdir\x3c/td>\n<td>ftp1\x3c/td>\n\x3c/tr>\n\x3c/table>","matched":true,"name":"Cwd","shortdoc":"Changes working directory and returns server output. Parameters:","tags":[]},{"args":["targetFile","connId=default"],"doc":"<p>Deletes file on FTP server. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>targetFile - file path to be deleted\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","matched":true,"name":"Delete","shortdoc":"Deletes file on FTP server. Returns server output.","tags":[]},{"args":["connId=default"],"doc":"<p>Returns list of raw lines returned as contens of current directory. Parameters:\x3c/p>\n<ul>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","matched":true,"name":"Dir","shortdoc":"Returns list of raw lines returned as contens of current directory.","tags":[]},{"args":["connId=default"],"doc":"<p>Returns list of files (and/or directories) of current directory. Parameters:\x3c/p>\n<ul>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","matched":true,"name":"Dir Names","shortdoc":"Returns list of files (and/or directories) of current directory.","tags":[]},{"args":["remoteFileName","localFilePath=None","connId=default"],"doc":"<p>Downloads file from current directory on FTP server in binary mode. If localFilePath is not given, file is saved in current local directory (by default folder containing robot framework project file) with the same name as source file. Returns server output Parameters:\x3c/p>\n<ul>\n<li>remoteFileName - file name on FTP server\x3c/li>\n<li>localFilePath (optional) - local file name or path where remote file should be saved.\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>localFilePath variable can have following meanings: 1. file name (will be saved in current default directory); 2. full path (dir + file name) 3. dir path (original file name will be added) Examples:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>b.txt\x3c/td>\n<td>connId=ftp1\x3c/td>\n\x3c/tr>\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>D:/rfftppy/tmp\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>D:/rfftppy/tmp/b.txt\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>download file\x3c/td>\n<td>a.txt\x3c/td>\n<td>D:\\rfftppy\\tmp\\c.txt\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>","matched":true,"name":"Download File","shortdoc":"Downloads file from current directory on FTP server in binary mode. If","tags":[]},{"args":["connId=default"],"doc":"<p>Closes FTP connection. Returns None. Parameters:\x3c/p>\n<ul>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","matched":true,"name":"Ftp Close","shortdoc":"Closes FTP connection. Returns None.","tags":[]},{"args":["host","user=anonymous","password=anonymous@","port=21","timeout=30","connId=default"],"doc":"<p>Constructs FTP object, opens a connection and login. Call this function before any other (otherwise raises exception). Returns server output. Parameters:\x3c/p>\n<ul>\n<li>host - server host address\x3c/li>\n<li>user(optional) - FTP user name. If not given, 'anonymous' is used.\x3c/li>\n<li>password(optional) - FTP password. If not given, 'anonymous@' is used.\x3c/li>\n<li>port(optional) - TCP port. By default 21.\x3c/li>\n<li>timeout(optional) - timeout in seconds. By default 30.\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Examples:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>connId=secondConn\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>29\x3c/td>\n<td>20\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>29\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>mylogin\x3c/td>\n<td>mypassword\x3c/td>\n<td>timeout=20\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>ftp connect\x3c/td>\n<td>192.168.1.10\x3c/td>\n<td>port=29\x3c/td>\n<td>timeout=20\x3c/td>\n<td>\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>","matched":true,"name":"Ftp Connect","shortdoc":"Constructs FTP object, opens a connection and login.","tags":[]},{"args":[],"doc":"<p>Returns a dictionary containing active ftp connections.\x3c/p>","matched":true,"name":"Get All Ftp Connections","shortdoc":"Returns a dictionary containing active ftp connections.","tags":[]},{"args":["connId=default"],"doc":"<p>Returns wlecome message of FTP server. Parameters:\x3c/p>\n<ul>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","matched":true,"name":"Get Welcome","shortdoc":"Returns wlecome message of FTP server.","tags":[]},{"args":["newDirName","connId=default"],"doc":"<p>Creates new directory on FTP server. Returns new directory path. Parameters:\x3c/p>\n<ul>\n<li>newDirName - name of a new directory\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","matched":true,"name":"Mkd","shortdoc":"Creates new directory on FTP server. Returns new directory path.","tags":[]},{"args":["connId=default"],"doc":"<p>Returns the pathname of the current directory on the server. Parameters:\x3c/p>\n<ul>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","matched":true,"name":"Pwd","shortdoc":"Returns the pathname of the current directory on the server.","tags":[]},{"args":["targetFile","newName","connId=default"],"doc":"<p>Renames (actually moves) file on FTP server. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>targetFile - name of a file or path to a file to be renamed\x3c/li>\n<li>newName - new name or new path\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Example:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>rename\x3c/td>\n<td>tmp/z.txt\x3c/td>\n<td>/home/myname/tmp/testdir/z.txt\x3c/td>\n\x3c/tr>\n\x3c/table>","matched":true,"name":"Rename","shortdoc":"Renames (actually moves) file on FTP server. Returns server output.","tags":[]},{"args":["directory","connId=default"],"doc":"<p>Deletes directory from FTP server. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>directory - path to a directory to be deleted\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>","matched":true,"name":"Rmd","shortdoc":"Deletes directory from FTP server. Returns server output.","tags":[]},{"args":["command","connId=default"],"doc":"<p>Sends any command to FTP server. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>command - any valid command to be sent (invalid will result in exception).\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Example:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>send cmd\x3c/td>\n<td>HELP\x3c/td>\n\x3c/tr>\n\x3c/table>","matched":true,"name":"Send Cmd","shortdoc":"Sends any command to FTP server. Returns server output.","tags":[]},{"args":["fileToCheck","connId=default"],"doc":"<p>Checks size of a file on FTP server. Returns size of a file in bytes (integer). Parameters:\x3c/p>\n<ul>\n<li>fileToCheck - file name or path to a file on FTP server\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>Example:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>${file1size} =\x3c/td>\n<td>size\x3c/td>\n<td>/home/myname/tmp/uu.txt\x3c/td>\n<td>connId=ftp1\x3c/td>\n\x3c/tr>\n<tr>\n<td>Should Be Equal As Numbers\x3c/td>\n<td>${file1size}\x3c/td>\n<td>31\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>\n<p>Note that the SIZE command is not standardized, but is supported by many common server implementations.\x3c/p>","matched":true,"name":"Size","shortdoc":"Checks size of a file on FTP server. Returns size of a file in bytes (integer).","tags":[]},{"args":["localFileName","remoteFileName=None","connId=default"],"doc":"<p>Sends file from local drive to current directory on FTP server in binary mode. Returns server output. Parameters:\x3c/p>\n<ul>\n<li>localFileName - file name or path to a file on a local drive.\x3c/li>\n<li>remoteFileName (optional) - a name or path containing name under which file should be saved.\x3c/li>\n<li>connId(optional) - connection identifier. By default equals 'default'\x3c/li>\n\x3c/ul>\n<p>If remoteFileName agument is not given, local name will be used. Examples:\x3c/p>\n<table border=\"1\">\n<tr>\n<td>upload file\x3c/td>\n<td>x.txt\x3c/td>\n<td>connId=ftp1\x3c/td>\n\x3c/tr>\n<tr>\n<td>upload file\x3c/td>\n<td>D:/rfftppy/y.txt\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n<tr>\n<td>upload file\x3c/td>\n<td>u.txt\x3c/td>\n<td>uu.txt\x3c/td>\n\x3c/tr>\n<tr>\n<td>upload file\x3c/td>\n<td>D:/rfftppy/z.txt\x3c/td>\n<td>zz.txt\x3c/td>\n\x3c/tr>\n<tr>\n<td>upload file\x3c/td>\n<td>D:\\rfftppy\\v.txt\x3c/td>\n<td>\x3c/td>\n\x3c/tr>\n\x3c/table>","matched":true,"name":"Upload File","shortdoc":"Sends file from local drive to current directory on FTP server in binary mode.","tags":[]}],"name":"FtpLibrary","named_args":true,"scope":"test suite","version":""};
 </script>
 <title></title>
 </head>
@@ -482,10 +572,13 @@ libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<
         parseTemplates();
         document.title = libdoc.name;
         renderTemplate('base', libdoc, $('body'));
-        if (libdoc.inits.length > 0) {
+        if (libdoc.inits.length) {
             renderTemplate('importing', libdoc);
         }
         renderTemplate('shortcuts', libdoc);
+        if (libdoc.contains_tags) {
+            renderTemplate('tags', libdoc);
+        }
         renderTemplate('keywords', libdoc);
         renderTemplate('footer', libdoc);
         scrollToHash();
@@ -525,6 +618,13 @@ libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<
         }
     }
 
+    function tagSearch(tag) {
+        var include = {tags: true, tagsExact: true};
+        markMatches(tag, include);
+        highlightMatches(tag, include);
+        $('#keywords-container').find('.kw-row').addClass('hide-unmatched');
+    }
+
     function doSearch() {
         var string = $('#search-string').val();
         var include = getIncludesAndDisableIfOnlyOneLeft();
@@ -541,38 +641,52 @@ libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<
         var name = $('#include-name');
         var args = $('#include-args');
         var doc = $('#include-doc');
+        var tags = $('#include-tags');
         var include = {name: name.prop('checked'),
                        args: args.prop('checked'),
-                       doc: doc.prop('checked')};
-        if ((!include.name) && (!include.args)) {
+                       doc: doc.prop('checked'),
+                       tags: !!tags.prop('checked')};
+        if ((!include.name) && (!include.args) && (!include.doc)) {
+            tags.prop('disabled', true);
+        } else if ((!include.name) && (!include.args) && (!include.tags)) {
             doc.prop('disabled', true);
-        } else if ((!include.name) && (!include.doc)) {
+        } else if ((!include.name) && (!include.doc) && (!include.tags)) {
             args.prop('disabled', true);
-        } else if ((!include.args) && (!include.doc)) {
+        } else if ((!include.args) && (!include.doc) && (!include.tags)) {
             name.prop('disabled', true);
         } else {
             name.prop('disabled', false);
             args.prop('disabled', false);
             doc.prop('disabled', false);
+            tags.prop('disabled', false);
         }
         return include;
     }
 
-    function markMatches(string, include) {
-        var regexp = new RegExp(util.regexpEscape(string), 'i');
-        var result = {};
+    function markMatches(pattern, include) {
+        pattern = util.regexpEscape(pattern);
+        if (include.tagsExact) {
+            pattern = '^' + pattern + '$';
+        }
+        var regexp = new RegExp(pattern, 'i');
+        var test = regexp.test.bind(regexp);
+        var result = {contains_tags: libdoc.contains_tags};
         var matchCount = 0;
         result.keywords = util.map(libdoc.keywords, function (kw) {
             kw = $.extend({}, kw);
-            kw.matched = (include.name && regexp.test(kw.name) ||
-                          include.args && regexp.test(kw.args) ||
-                          include.doc && regexp.test($(kw.doc).text()));
+            kw.matched = (include.name && test(kw.name) ||
+                          include.args && test(kw.args) ||
+                          include.doc && test($(kw.doc).text()) ||
+                          include.tags && util.any(util.map(kw.tags, test)));
             if (kw.matched)
                 matchCount++;
             return kw
         });
         renderTemplate('shortcuts', result);
         renderTemplate('keywords', result);
+        if (libdoc.contains_tags) {
+            renderTemplate('tags', libdoc);
+        }
         var ending = matchCount != 1 ? 's.' : '.';
         $('#match-count').show().text(matchCount + ' matched keyword' + ending);
         $('#altogether-count').hide();
@@ -592,6 +706,16 @@ libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<
         }
         if (include.doc) {
             keywords.find('.doc').highlight(string);
+        }
+        if (include.tags) {
+            var matches = keywords.find('.tags').find('a').add(
+                    $('#tags-container').find('a'));
+            if (include.tagsExact) {
+                matches = matches.filter(function (index, tag) {
+                    return $(tag).text().toUpperCase() == string.toUpperCase();
+                });
+            }
+            matches.highlight(string);
         }
     }
 
@@ -619,6 +743,9 @@ libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<
     function resetKeywords() {
         renderTemplate('shortcuts', libdoc);
         renderTemplate('keywords', libdoc);
+        if (libdoc.contains_tags) {
+            renderTemplate('tags', libdoc);
+        }
         $('#match-count').hide();
         $('#altogether-count').show();
     }
@@ -653,6 +780,7 @@ libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<
     </div>
     <div id="importing-container"></div>
     <div id="shortcuts-container"></div>
+    <div id="tags-container"></div>
     <div id="keywords-container"></div>
     <div id="footer-container"></div>
     <form id="search" action="javascript:void(0)">
@@ -667,6 +795,10 @@ libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<
                 <label for="include-args">Arguments</label>
                 <input type="checkbox" id="include-doc" onclick="doSearch()" checked>
                 <label for="include-doc">Documentation</label>
+                {{if libdoc.contains_tags}}
+                <input type="checkbox" id="include-tags" onclick="doSearch()" checked>
+                <label for="include-tags">Tags</label>
+                {{/if}}
             </fieldset>
             <input type="checkbox" id="hide-unmatched" onclick="setMatchVisibility()" checked>
             <label for="hide-unmatched">Hide unmatched keywords</label>
@@ -690,7 +822,11 @@ libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<
         </tr>
         {{each inits}}
         <tr class="kw-row">
-            <td class="args">${$value.args}</td>
+            <td class="args">
+            {{each args}}
+              <span>${$value}</span>{{if $index < args.length-1}}, {{/if}}
+            {{/each}}
+            </td>
             <td class="doc">{{html $value.doc}}</td>
         </tr>
         {{/each}}
@@ -709,23 +845,58 @@ libdoc = {"doc":"<p>This library provides functionality of FTP client.\x3c/p>\n<
     </div>
 </script>
 
+<script type="text/x-jquery-tmpl" id="tags-template">
+    <h2 id="Tags">Tags</h2>
+    <div class='shortcuts'>
+        {{each all_tags}}
+        <a href="javascript:tagSearch('${$value}')"
+           title="Show tests with this tag">${$value}</a> &middot;
+        {{/each}}
+        <a href="javascript:resetKeywords()" class="normal-first-letter"
+           title="Show all tests">[Reset]</a>
+    </div>
+</script>
+
 <script type="text/x-jquery-tmpl" id="keywords-template">
     <h2 id="Keywords">Keywords</h2>
     <table border="1" class="keywords">
         <tr>
             <th class="kw">Keyword</th>
             <th class="args">Arguments</th>
+            {{if libdoc.contains_tags}}
+            <th class="tags">Tags</th>
+            {{/if}}
             <th class="doc">Documentation</th>
         </tr>
         {{each keywords}}
-        <tr class="kw-row {{if $value.matched === false}}no-{{/if}}match">
-            <td class="kw"><a name="${encodeURIComponent($value.name)}"></a>${$value.name}</td>
-            <td class="args">${$value.args}</td>
-            <td class="doc">{{html $value.doc}}</td>
-        </tr>
+            {{tmpl($value) 'keyword-template'}}
         {{/each}}
     </table>
 </script>
+
+<script type="text/x-jquery-tmpl" id="keyword-template">
+    <tr class="kw-row {{if matched === false}}no-{{/if}}match">
+        <td class="kw">
+            <a name="${name}" href="#${encodeURIComponent(name)}"
+               title="Link to this keyword">${name}</a>
+        </td>
+        <td class="args">
+            {{each args}}
+            <span>${$value}</span>{{if $index < args.length-1}}, {{/if}}
+            {{/each}}
+        </td>
+        {{if libdoc.contains_tags}}
+        <td class="tags">
+            {{each tags}}
+            <a href="javascript:tagSearch('${$value}')"
+               title="Show tests with this tag">${$value}</a>{{if $index < tags.length-1}}, {{/if}}
+            {{/each}}
+        </td>
+        {{/if}}
+        <td class="doc">{{html doc}}</td>
+    </tr>
+</script>
+
 
 <script type="text/x-jquery-tmpl" id="footer-template">
     <p class="footer">

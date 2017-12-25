@@ -22,6 +22,9 @@ the_simplest_example_public_ftp
     comment    Public FTP server IP address taken from http://stackoverflow.com/questions/7968703/is-there-a-public-ftp-server-to-test-upload-and-download
     ftp connect    ${public_address}
     @{dirResult}=    dir
+    Log    ${dirResult}
+    @{files}=    dir names
+    Log    ${files}
     ${pwdMsg}=    pwd
     download file    ${public_file_name}
     ftp close

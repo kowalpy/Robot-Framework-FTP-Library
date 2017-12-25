@@ -27,6 +27,12 @@ What's new in release 1.4:
 - running library remotely
 - IronPython compatibility issue fixed by Jarkko Peltonen
 
+Version 1.5 released on 25th of December 2017
+
+What's new in release 1.5:
+- Python 3 support by Dirk Richter
+- New Keyword Dir Names
+
 ## Installation
 - run command: **pip install robotframework-ftplibrary**
 
