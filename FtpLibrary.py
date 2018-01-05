@@ -444,7 +444,10 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
         """
         thisConn = self.__getConnection(connId)
         try:
-            thisConn.close()
+            try:
+                thisConn.quit()
+            except Exception, e:
+                thisConn.close()
             self.__removeConnection(connId)
         except ftplib.all_errors as e:
             raise FtpLibraryError(str(e))
