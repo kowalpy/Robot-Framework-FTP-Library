@@ -19,15 +19,11 @@ ${test_file_name}    test.txt
 
 *** Test Cases ***
 the_simplest_example_public_ftp
-    comment    Public FTP server IP address taken from http://stackoverflow.com/questions/7968703/is-there-a-public-ftp-server-to-test-upload-and-download
-    ftp connect    ${public_address}
-    @{dirResult}=    dir
-    Log    ${dirResult}
-    @{files}=    dir names
-    Log    ${files}
-    ${pwdMsg}=    pwd
-    download file    ${public_file_name}
-    ftp close
+    public example
+
+the_simplest_example_public_ftp_looped
+    :FOR    ${i}    IN RANGE    0    3
+    \    public example
 
 get_connections
     [Documentation]    Testing new keyword "get all ftp connections"
@@ -111,3 +107,15 @@ negative_tests
     Run Keyword Unless    ${passed4}    Log    Fail as expected
     ${passed5}=    Run Keyword And Return Status    upload file    shagdfqfcrtcfjwgakwrj    connId=newConn    # not existing file
     Run Keyword Unless    ${passed5}    Log    Fail as expected
+
+*** Keywords ***
+public_example
+    comment    Public FTP server IP address taken from http://stackoverflow.com/questions/7968703/is-there-a-public-ftp-server-to-test-upload-and-download
+    ftp connect    ${public_address}
+    @{dirResult}=    dir
+    Log    ${dirResult}
+    @{files}=    dir names
+    Log    ${files}
+    ${pwdMsg}=    pwd
+    download file    ${public_file_name}
+    ftp close
