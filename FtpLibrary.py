@@ -26,11 +26,10 @@ class FtpLibrary(object):
     """
 This library provides functionality of FTP client.
 
-Version 1.5 released on 25th of December 2017
+Version 1.6 released on 10th of January 2018
 
-What's new in release 1.5:
-- Python 3 support by [https://github.com/DirkRichter|Dirk Richter]
-- New Keyword Dir Names
+What's new in release 1.6:
+- fixed session closing by [https://github.com/antonpaa|antonpaa]
 
 FTP communication provided by ftplib.py
 

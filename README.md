@@ -33,6 +33,11 @@ What's new in release 1.5:
 - Python 3 support by Dirk Richter
 - New Keyword Dir Names
 
+Version 1.6 released on 10th of January 2018
+
+What's new in release 1.6:
+- fixed session closing by Antonpaa
+
 ## Installation
 - run command: **pip install robotframework-ftplibrary**
 
