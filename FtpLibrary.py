@@ -148,7 +148,7 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
                 port = int(port)
                 newFtp = ftplib.FTP()
                 outputMsg += newFtp.connect(host, port, timeout)
-                outputMsg += newFtp.login(user,password)
+                outputMsg += newFtp.login(user, password)
             except socket.error as se:
                 raise FtpLibraryError('Socket error exception occured.')
             except ftplib.all_errors as e:
@@ -159,9 +159,86 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
                 logger.info(outputMsg)
             self.__addNewConnection(newFtp, connId)
 
+    def ftp_tls_connect(self, host, user='anonymous', password='anonymous@', port=21, timeout=30, connId='default'):
+        """
+        Constructs FTP object with TLS support, opens a connection and login.
+        Call this function before any other (otherwise raises exception).
+        Returns server output.
+        Parameters:
+            - host - server host address
+            - user(optional) - FTP user name. If not given, 'anonymous' is used.
+            - password(optional) - FTP password. If not given, 'anonymous@' is used.
+            - port(optional) - TCP port. By default 21.
+            - timeout(optional) - timeout in seconds. By default 30.
+            - connId(optional) - connection identifier. By default equals 'default'
+        Examples:
+        | ftp tls connect | 192.168.1.10 | mylogin | mypassword |  |  |
+        | ftp tls connect | 192.168.1.10 |  |  |  |  |
+        | ftp tls connect | 192.168.1.10 | mylogin | mypassword | connId=secondConn |  |
+        | ftp tls connect | 192.168.1.10 | mylogin | mypassword | 29 | 20 |
+        | ftp tls connect | 192.168.1.10 | mylogin | mypassword | 29 |  |
+        | ftp tls connect | 192.168.1.10 | mylogin | mypassword | timeout=20 |  |
+        | ftp tls connect | 192.168.1.10 | port=29 | timeout=20 |  |  |
+        """
+        if connId in self.ftpList:
+            errMsg = "Connection with ID %s already exist. It should be deleted before this step." % connId
+            raise FtpLibraryError(errMsg)
+        else:
+            newFtps = None
+            outputMsg = ""
+            try:
+                timeout = int(timeout)
+                port = int(port)
+                newFtps = ftplib.FTP_TLS()
+                outputMsg += newFtps.connect(host, port, timeout)
+                outputMsg += newFtps.login(user, password)
+            except socket.error as se:
+                raise FtpLibraryError('Socket error exception occured.')
+            except ftplib.all_errors as e:
+                raise FtpLibraryError(str(e))
+            except Exception as e:
+                raise FtpLibraryError(str(e))
+            if self.printOutput:
+                logger.info(outputMsg)
+            self.__addNewConnection(newFtps, connId)
+
+    def clear_text_data_connection(self, connId='default'):
+        """
+        Switches to a clear text data connection.
+        Only usable with an FTP TLS connection. No effect if used with a regular ftp connection.
+        Parameters:
+        - connId(optional) - connection identifier. By default equals 'default'
+        """
+        outputMsg = ""
+        thisConn = self.__getConnection(connId)
+        try:
+            thisConn.prot_c()
+        except ftplib.all_errors as e:
+            raise FtpLibraryError(str(e))
+        if self.printOutput:
+            logger.info(outputMsg)
+        return outputMsg
+
+    def secure_data_connection(self, connId='default'):
+        """
+        Switches to a secure data connection.
+        Only usable with an FTP TLS connection. No effect if used with a regular ftp connection.
+        Parameters:
+        - connId(optional) - connection identifier. By default equals 'default'
+        """
+        outputMsg = ""
+        thisConn = self.__getConnection(connId)
+        try:
+            thisConn.prot_p()
+        except ftplib.all_errors as e:
+            raise FtpLibraryError(str(e))
+        if self.printOutput:
+            logger.info(outputMsg)
+        return outputMsg
+
     def get_welcome(self, connId='default'):
         """
-        Returns wlecome message of FTP server.
+        Returns welcome message of FTP server.
         Parameters:
         - connId(optional) - connection identifier. By default equals 'default'
         """
