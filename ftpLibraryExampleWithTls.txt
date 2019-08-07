@@ -1,0 +1,27 @@
+*** Settings ***
+Library    FtpLibrary
+
+*** Test Cases ***
+Login With Ftps
+    [Setup]    Ftp Tls Connect    ${ip}    ${username}    ${password}    connId=conn1
+    Secure Data Connection    connId=conn1
+    Validate An Active Ftp Connection
+    [Teardown]    Ftp Close    connId=conn1
+
+Incorrect Ftps Login Tests
+    [Tags]    FTP    No Video    MultiUser    Authentication
+    [Template]    Incorrect Ftps Login
+    ${EMPTY}       ${EMPTY}
+    ${username}    ${EMPTY}
+    ${EMPTY}       ${password}
+
+*** Keywords ***
+Validate An Active Ftp Connection
+    &{ftpConnections} =    Get All Ftp Connections
+    Log Many               &{ftpConnections}
+    Should Not Be Empty    ${ftpConnections}
+
+Incorrect Ftps Login
+    [Arguments]    ${user}    ${pw}
+    # 530 = Return code for an incorrect login
+    Run Keyword And Expect Error    *530*    Ftp Tls Connect    ${ip}    ${user}    ${pw}    port=${21}    timeout=${6}
