@@ -21,10 +21,22 @@ What's new in release 1.3:
 - strongly refactored source code
 - enabling/disabling printout of messages returned by ftp server
 
-Version 1.4 released on 1st of April 2017 - no, it is not April Fools' Day joke :-D 
+Version 1.4 released on 17th of May 2017  
 
 What's new in release 1.4:
 - running library remotely
+- IronPython compatibility issue fixed by Jarkko Peltonen
+
+Version 1.5 released on 25th of December 2017
+
+What's new in release 1.5:
+- Python 3 support by Dirk Richter
+- New Keyword Dir Names
+
+Version 1.6 released on 10th of January 2018
+
+What's new in release 1.6:
+- fixed session closing by Antonpaa
 
 ## Installation
 - run command: **pip install robotframework-ftplibrary**
