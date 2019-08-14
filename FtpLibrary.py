@@ -152,7 +152,6 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
         else:
             newFtp = None
             outputMsg = ""
-            connected = False
             try:
                 timeout = int(timeout)
                 port = int(port)
@@ -162,19 +161,18 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
                 else:
                     newFtp = ftplib.FTP()
                 outputMsg += newFtp.connect(host, port, timeout)
-                connected = True
+                self.__addNewConnection(newFtp, connId)
                 outputMsg += newFtp.login(user, password)
             except socket.error as se:
                 raise FtpLibraryError('Socket error exception occured.')
             except ftplib.all_errors as e:
-                if connected == True:
-                    newFtp.quit()
+                if connId in self.ftpList:
+                    self.ftp_close(connId)
                 raise FtpLibraryError(str(e))
             except Exception as e:
                 raise FtpLibraryError(str(e))
             if self.printOutput:
                 logger.info(outputMsg)
-            self.__addNewConnection(newFtp, connId)
 
     def clear_text_data_connection(self, connId='default'):
         """
