@@ -22,7 +22,7 @@ the_simplest_example_public_ftp
     public example
 
 the_simplest_example_public_ftp_looped
-    :FOR    ${i}    IN RANGE    0    3
+    : FOR    ${i}    IN RANGE    0    3
     \    public example
 
 get_connections
@@ -108,6 +108,12 @@ negative_tests
     ${passed5}=    Run Keyword And Return Status    upload file    shagdfqfcrtcfjwgakwrj    connId=newConn    # not existing file
     Run Keyword Unless    ${passed5}    Log    Fail as expected
 
+tls keywords check with non tls connection
+    ftp connect    ${public_address}
+    Clear Text Data Connection
+    Secure Data Connection
+    ftp close
+
 *** Keywords ***
 public_example
     comment    Public FTP server IP address taken from http://stackoverflow.com/questions/7968703/is-there-a-public-ftp-server-to-test-upload-and-download
@@ -118,4 +124,7 @@ public_example
     Log    ${files}
     ${pwdMsg}=    pwd
     download file    ${public_file_name}
+    ${connections}=    get all ftp connections
+    @{connectionKeys}=    get dictionary keys    ${connections}
+    @{connectionValues}=    get dictionary values    ${connections}
     ftp close
