@@ -38,6 +38,12 @@ Version 1.6 released on 10th of January 2018
 What's new in release 1.6:
 - fixed session closing by Antonpaa
 
+Version 1.7 released on 30th of December 2019
+
+What's new in release 1.7:
+- TLS support by Antonpaa
+- one bugfix by Jarkko Peltonen
+
 ## Installation
 - run command: **pip install robotframework-ftplibrary**
 
