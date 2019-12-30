@@ -30,7 +30,7 @@ setup(name='robotframework-ftplibrary',
       license='GPLv3',
       url='http://sourceforge.net/projects/rf-ftp-py/',
       py_modules=['FtpLibrary'],
-      data_files=[('Example RF script', ['ftpLibraryExample.txt']),
+      data_files=[('Example RF script', ['ftpLibraryExample.robot']),
                   ('Keywords documentation', ['FtpLibrary.html']),
                   ('License file', ['LICENSE_gpl-3.0.txt'])]
       )
