@@ -23,5 +23,4 @@ Validate An Active Ftp Connection
 Incorrect Ftps Login
     [Arguments]    ${user}    ${pw}
     # 530 = Return code for an incorrect login
-    Run Keyword And Expect Error    *530*    Ftp Connect    ${ip}    ${user}    ${pw}    port=${21}
-    ...    timeout=${6}    tls=${True}
+    Run Keyword And Expect Error    *530*    Ftp Connect    ${ip}    ${user}    ${pw}    port=${21}    timeout=${6}    tls=${True}
