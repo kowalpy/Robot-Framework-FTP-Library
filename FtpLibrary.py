@@ -26,9 +26,9 @@ class FtpLibrary(object):
     """
 This library provides functionality of FTP client.
 
-Version 1.7 released on 30th of December 2019
+Version 1.8 released on 30th of December 2019
 
-What's new in release 1.7:
+What's new in release 1.8:
 - TLS support by Antonpaa
 - one bugfix by Jarkko Peltonen
 
