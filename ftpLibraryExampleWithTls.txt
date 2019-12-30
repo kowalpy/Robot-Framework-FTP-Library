@@ -9,7 +9,6 @@ Login With Ftps
     [Teardown]    Ftp Close    connId=conn1
 
 Incorrect Ftps Login Tests
-    [Tags]    FTP    No Video    MultiUser    Authentication
     [Template]    Incorrect Ftps Login
     ${EMPTY}    ${EMPTY}
     ${username}    ${EMPTY}

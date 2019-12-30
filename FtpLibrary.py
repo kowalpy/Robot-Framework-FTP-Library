@@ -181,7 +181,7 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
         """
         outputMsg = ""
         thisConn = self.__getConnection(connId)
-        self.__isTlsConnection(connId)
+        self.__isTlsConnection(thisConn)
         try:
             thisConn.prot_c()
         except ftplib.all_errors as e:
@@ -199,7 +199,7 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
         """
         outputMsg = ""
         thisConn = self.__getConnection(connId)
-        self.__isTlsConnection(connId)
+        self.__isTlsConnection(thisConn)
         try:
             thisConn.prot_p()
         except ftplib.all_errors as e:
