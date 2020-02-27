@@ -24,7 +24,7 @@ To install Robot Framework Ftp Library execute command:
 from distutils.core import setup
 
 setup(name='robotframework-ftplibrary',
-      version='1.8',
+      version='1.9',
       description='Robot Framework Ftp Library',
       author='Marcin Kowalczyk',
       license='GPLv3',

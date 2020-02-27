@@ -22,8 +22,8 @@ the_simplest_example_public_ftp
     public example
 
 the_simplest_example_public_ftp_looped
-    : FOR    ${i}    IN RANGE    0    3
-    \    public example
+    FOR    ${i}    IN RANGE    0    3
+        public example
 
 get_connections
     [Documentation]    Testing new keyword "get all ftp connections"
@@ -34,10 +34,10 @@ get_connections
     ${connections}=    get all ftp connections
     @{connectionKeys}=    get dictionary keys    ${connections}
     @{connectionValues}=    get dictionary values    ${connections}
-    : FOR    ${k}    IN    @{connectionKeys}
-    \    Log    ${k}
-    : FOR    ${c}    IN    @{connectionValues}
-    \    Log    ${c}
+    FOR    ${k}    IN    @{connectionKeys}
+        Log    ${k}
+    FOR    ${c}    IN    @{connectionValues}
+        Log    ${c}
     ftp close
     ftp close    secondConn
     ftp close    thirdConn
@@ -98,8 +98,7 @@ negative_tests
     ftp connect    ${local_ftp_addr_1}    ${user_1}    ${pass_1}    connId=newConn
     ${passed}=    Run Keyword And Return Status    pwd    connId=newConn2
     Run Keyword Unless    ${passed}    Log    Fail as expected
-    ${passed2}=    Run Keyword And Return Status    ftp connect    ${local_ftp_addr_1}    ${user_1}    ${pass_1}    connId=newConn
-    ...    # already existing connection ID
+    ${passed2}=    Run Keyword And Return Status    ftp connect    ${local_ftp_addr_1}    ${user_1}    ${pass_1}    connId=newConn    # already existing connection ID
     Run Keyword Unless    ${passed2}    Log    Fail as expected
     ${passed3}=    Run Keyword And Return Status    pwd    connId=newConn8    # not existing connection ID
     Run Keyword Unless    ${passed3}    Log    Fail as expected
@@ -112,6 +111,18 @@ tls keywords check with non tls connection
     ftp connect    ${public_address}
     Clear Text Data Connection
     Secure Data Connection
+    ftp close
+
+the_simplest_example_public_ftp_active_mode
+    comment    Public FTP server IP address taken from http://stackoverflow.com/questions/7968703/is-there-a-public-ftp-server-to-test-upload-and-download
+    Log    Example does not work because server seems not to accept active mode    WARN
+    ftp connect    ${public_address}    mode=active
+    @{dirResult}=    dir
+    Log    ${dirResult}
+    @{files}=    dir names
+    Log    ${files}
+    ${pwdMsg}=    pwd
+    download file    ${public_file_name}
     ftp close
 
 *** Keywords ***

@@ -44,6 +44,11 @@ What's new in release 1.8:
 - TLS support by Antonpaa
 - one bugfix by Jarkko Peltonen
 
+Version 1.9 released on 27th of February 2020
+
+What's new in release 1.9:
+- active mode added by Alexander Klose (scathaig)
+
 ## Installation
 - run command: **pip install robotframework-ftplibrary**
 

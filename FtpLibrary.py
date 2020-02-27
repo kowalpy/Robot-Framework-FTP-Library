@@ -26,11 +26,10 @@ class FtpLibrary(object):
     """
 This library provides functionality of FTP client.
 
-Version 1.8 released on 30th of December 2019
+Version 1.9 released on 27th of February 2020
 
-What's new in release 1.8:
-- TLS support by Antonpaa
-- one bugfix by Jarkko Peltonen
+What's new in release 1.9:
+- active mode added by Alexander Klose (scathaig)
 
 FTP communication provided by ftplib.py
 
