@@ -125,7 +125,7 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
             logger.info(outputMsg)
         return self.ftpList
 
-    def ftp_connect(self, host, user='anonymous', password='anonymous@', port=21, timeout=30, connId='default', tls=False):
+    def ftp_connect(self, host, user='anonymous', password='anonymous@', port=21, timeout=30, connId='default', tls=False, mode='passive'):
         """
         Constructs FTP object, opens a connection and login. TLS support is optional.
         Call this function before any other (otherwise raises exception).
@@ -138,6 +138,8 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
             - timeout(optional) - timeout in seconds. By default 30.
             - connId(optional) - connection identifier. By default equals 'default'
             - tls(optional) - TLS connections flag. By default False
+            - mode(optional) - set the transfer mode to 'active' or 'passive'. By default 'passive'
+            
         Examples:
         | ftp connect | 192.168.1.10 | mylogin | mypassword |  |  |
         | ftp connect | 192.168.1.10 |  |  |  |  |
@@ -146,6 +148,7 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
         | ftp connect | 192.168.1.10 | mylogin | mypassword | 29 |  |
         | ftp connect | 192.168.1.10 | mylogin | mypassword | timeout=20 |  |
         | ftp connect | 192.168.1.10 | port=29 | timeout=20 |  |  |
+        | ftp connect | 192.168.1.10 | port=29 | timeout=20 | mode=active |  |
         """
         if connId in self.ftpList:
             errMsg = "Connection with ID %s already exist. It should be deleted before this step." % connId
@@ -164,6 +167,10 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
                 outputMsg += newFtp.connect(host, port, timeout)
                 self.__addNewConnection(newFtp, connId)
                 outputMsg += newFtp.login(user, password)
+                
+                # set mode depending of "mode" value. if it is not "active" or "passive" default to passive
+                newFtp.set_pasv({'passive': True, 'active': False}.get(mode, True))
+                
             except socket.error as se:
                 raise FtpLibraryError('Socket error exception occured.')
             except ftplib.all_errors as e:
