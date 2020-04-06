@@ -180,6 +180,7 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
                 raise FtpLibraryError(str(e))
             if self.printOutput:
                 logger.info(outputMsg)
+            return outputMsg
 
     def clear_text_data_connection(self, connId='default'):
         """
