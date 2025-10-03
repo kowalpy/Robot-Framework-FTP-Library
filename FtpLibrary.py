@@ -19,6 +19,7 @@
 import ftplib
 import os
 import socket
+import ipaddress
 from robot.api import logger
 
 class FtpLibrary(object):
@@ -131,6 +132,8 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
         Returns server output.
         Parameters:
             - host - server host address
+                - If host is a hostname, IPv6 resolution is attempted first, falling back to IPv4 if necessary.
+                - If host is a literal IP address, its version (IPv4 or IPv6) is used directly.
             - user(optional) - FTP user name. If not given, 'anonymous' is used.
             - password(optional) - FTP password. If not given, 'anonymous@' is used.
             - port(optional) - TCP port. By default 21.
@@ -148,38 +151,69 @@ To run library remotely execute: python FtpLibrary.py <ipaddress> <portnumber>
         | ftp connect | 192.168.1.10 | mylogin | mypassword | timeout=20 |  |
         | ftp connect | 192.168.1.10 | port=29 | timeout=20 |  |  |
         | ftp connect | 192.168.1.10 | port=29 | timeout=20 | mode=active |  |
+        | ftp connect | 2001:0db8:85a3:0000:0000:8a2e:0370:7334 | port=29 | timeout=20 | mode=active |  |
         """
         if connId in self.ftpList:
-            errMsg = "Connection with ID %s already exist. It should be deleted before this step." % connId
-            raise FtpLibraryError(errMsg)
-        else:
-            newFtp = None
-            outputMsg = ""
+            raise FtpLibraryError(f"Connection with ID {connId} already exists. It should be deleted before this step.")
+
+        outputMsg = ""
+        try:
+            timeout = int(timeout)
+            port = int(port)
+
+            # Choose FTP class
+            ftp_class = ftplib.FTP_TLS if tls else ftplib.FTP
+            newFtp = ftp_class()
+
+            logger.debug(f"Received host input: {host}")
+
+            # Determine IP version
             try:
-                timeout = int(timeout)
-                port = int(port)
-                newFtp = None
-                if tls:
-                    newFtp = ftplib.FTP_TLS()
-                else:
-                    newFtp = ftplib.FTP()
-                outputMsg += newFtp.connect(host, port, timeout)
-                self.__addNewConnection(newFtp, connId)
-                outputMsg += newFtp.login(user, password)
-                
-                # set mode depending of "mode" value. if it is not "active" or "passive" default to passive
-                newFtp.set_pasv({'passive': True, 'active': False}.get(mode, True))
-                
-            except socket.error as se:
-                raise FtpLibraryError('Socket error exception occured.')
-            except ftplib.all_errors as e:
-                if connId in self.ftpList:
-                    self.ftp_close(connId)
-                raise FtpLibraryError(str(e))
-            except Exception as e:
-                raise FtpLibraryError(str(e))
-            if self.printOutput:
-                logger.info(outputMsg)
+                ip_obj = ipaddress.ip_address(host)
+                logger.debug(f"Host is a literal IP address: {ip_obj} (IPv{ip_obj.version})")
+                family = socket.AF_INET6 if ip_obj.version == 6 else socket.AF_INET
+            except ValueError:
+                logger.debug(f"Host is a hostname, attempting IPv6 resolution...")
+                try:
+                    socket.getaddrinfo(host, port, socket.AF_INET6, socket.SOCK_STREAM)
+                    logger.debug(f"Successfully resolved hostname to IPv6: {host}")
+                    family = socket.AF_INET6
+                except socket.gaierror as e:
+                    logger.warning(f"IPv6 resolution failed for {host}: {e}")
+                    logger.debug(f"Falling back to IPv4 resolution...")
+                    family = socket.AF_INET
+
+            addr_info = socket.getaddrinfo(host, port, family, socket.SOCK_STREAM)
+            logger.debug(f"Resolved address info: {addr_info}")
+
+            logger.info(f"Attempting FTP connection to {host} on port {port} using {'IPv6' if family == socket.AF_INET6 else 'IPv4'}")
+            logger.info(f"FTP connection setup: host={host}, port={port}, family={'IPv6' if family==socket.AF_INET6 else 'IPv4'}, TLS={'enabled' if tls else 'disabled'}, mode={mode}, timeout={timeout}s")
+
+            # Use resolved address but let FTP.connect() handle the socket
+            outputMsg += newFtp.connect(host, port, timeout)
+            self.__addNewConnection(newFtp, connId)
+            outputMsg += newFtp.login(user, password)
+
+            # Set transfer mode
+            newFtp.set_pasv({'passive': True, 'active': False}.get(mode, True))
+
+        except ConnectionRefusedError as cre:
+            logger.error(f"Connection refused: {cre}")
+            raise FtpLibraryError(f"Connection refused: {cre}")
+        except socket.error as se:
+            logger.error(f"Socket error: {se}")
+            raise FtpLibraryError(f"Socket error: {se}")
+        except ftplib.all_errors as e:
+            logger.error(f"FTP error: {e}")
+            if connId in self.ftpList:
+                self.ftp_close(connId)
+            raise FtpLibraryError(str(e))
+        except Exception as e:
+            logger.error(f"Unexpected error: {e}")
+            raise FtpLibraryError(str(e))
+
+        if self.printOutput:
+            logger.info(outputMsg)
 
     def clear_text_data_connection(self, connId='default'):
         """
