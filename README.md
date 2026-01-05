@@ -51,6 +51,8 @@ Version 1.9 released on 27th of February 2020
 What's new in release 1.9:
 - active mode added by Alexander Klose (scathaig)
 
+Version 1.10 fixes license mismatch.
+
 ## Installation
 - run command: **pip install robotframework-ftplibrary**
 
