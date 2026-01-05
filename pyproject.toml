@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robotframework-ftplibrary"
+version = "1.10"
+description = "Robot Framework Ftp Library"
+authors = [
+    { name = "Marcin Kowalczyk" }
+]
+license = { file = "LICENSE_lgpl-3.0.txt" }
+readme = "README.md"
+
+[project.urls]
+"Homepage" = "https://github.com/kowalpy/Robot-Framework-FTP-Library/"
+
