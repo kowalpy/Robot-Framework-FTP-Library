@@ -4,6 +4,8 @@ This library provides functionality of FTP client. FTP communication provided by
 
 Starting from 3rd of Janury 2017, project is hosted at Github. 
 
+If you find this library useful you can always support me by buying a :coffee: https://buymeacoffee.com/kowalpy :smirk:
+
 ## License
 
 LGPL 3.0
@@ -48,6 +50,8 @@ Version 1.9 released on 27th of February 2020
 
 What's new in release 1.9:
 - active mode added by Alexander Klose (scathaig)
+
+Version 1.10 fixes license mismatch.
 
 ## Installation
 - run command: **pip install robotframework-ftplibrary**
