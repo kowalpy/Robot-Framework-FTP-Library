@@ -15,5 +15,3 @@ readme = "README.md"
 [project.urls]
 "Homepage" = "https://github.com/kowalpy/Robot-Framework-FTP-Library/"
 
-[tool.setuptools]
-py-modules = ["FtpLibrary"]
